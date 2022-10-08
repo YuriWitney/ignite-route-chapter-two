@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "sucrase-node src/main/server.ts",
+    "start": "sucrase-node src/server.ts",
+    "debug": "node --inspect-brk -r sucrase/register src/server.ts",
     "test": "jest --passWithNoTests --runInBand --noStackTrace",
     "test:staged": "npm run test --findRelatedTests",
     "lint-staged": "lint-staged",
