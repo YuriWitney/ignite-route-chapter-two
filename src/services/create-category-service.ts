@@ -1,4 +1,4 @@
-import { CategoriesRepository } from '../repositories/categories-repository'
+import { DbCategoriesRepository } from '../repositories/protocols/db-categories-repository'
 
 interface CategoryRequest {
   name: string
@@ -6,9 +6,9 @@ interface CategoryRequest {
 }
 
 export class CreateCategoryService {
-  private readonly categoriesRepository: CategoriesRepository
+  private readonly categoriesRepository: DbCategoriesRepository
 
-  constructor (categoriesRepository: CategoriesRepository) {
+  constructor (categoriesRepository: DbCategoriesRepository) {
     this.categoriesRepository = categoriesRepository
   }
 

@@ -1,11 +1,7 @@
 import { Category } from '../model/category'
+import { CategoryData, DbCategoriesRepository } from './protocols/db-categories-repository'
 
-interface CategoryData {
-  name: string
-  description: string
-}
-
-export class CategoriesRepository {
+export class CategoriesRepository implements DbCategoriesRepository {
   private readonly categories: Category[]
 
   constructor () {
