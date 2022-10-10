@@ -1,11 +1,11 @@
-import { DbCategoriesRepository } from '../repositories/protocols/db-categories-repository'
+import { DbCategoriesRepository } from '../../repositories/protocols/db-categories-repository'
 
 interface CategoryRequest {
   name: string
   description: string
 }
 
-export class CreateCategoryService {
+export class CreateCategoryUseCase {
   private readonly categoriesRepository: DbCategoriesRepository
 
   constructor (categoriesRepository: DbCategoriesRepository) {
