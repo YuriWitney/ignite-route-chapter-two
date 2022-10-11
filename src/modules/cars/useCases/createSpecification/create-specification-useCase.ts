@@ -1,11 +1,11 @@
-import { DbSpecificationsRepository } from '../repositories/protocols/db-specifications-repository'
+import { DbSpecificationsRepository } from '../../repositories/protocols/db-specifications-repository'
 
 export interface SpecificationRequest {
   name: string
   description: string
 }
 
-export class CreateSpecificationService {
+export class CreateSpecificationUseCase {
   private readonly SpecificationsRepository: DbSpecificationsRepository
 
   constructor (SpecificationsRepository: DbSpecificationsRepository) {
