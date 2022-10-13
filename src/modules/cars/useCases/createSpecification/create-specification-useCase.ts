@@ -19,7 +19,7 @@ export class CreateSpecificationUseCase {
       throw new Error('Specification already exists')
     }
 
-    this.SpecificationsRepository.create({
+    return this.SpecificationsRepository.create({
       name,
       description
     })
