@@ -3,9 +3,17 @@ import { CategoryData, DbCategoriesRepository } from './protocols/db-categories-
 
 export class CategoriesRepository implements DbCategoriesRepository {
   private readonly categories: Category[]
+  private static instance: CategoriesRepository
 
-  constructor () {
+  private constructor () {
     this.categories = []
+  }
+
+  public static getInstance() {
+    if(CategoriesRepository.instance === undefined) {
+      CategoriesRepository.instance = new CategoriesRepository()
+    }
+    return CategoriesRepository.instance
   }
 
   create ({ name, description }: CategoryData): void {

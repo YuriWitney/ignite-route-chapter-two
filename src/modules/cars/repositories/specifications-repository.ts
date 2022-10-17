@@ -4,9 +4,17 @@ import { DbSpecificationsRepository, SpecificationData } from './protocols/db-sp
 
 export class SpecificationsRepository implements DbSpecificationsRepository {
   private readonly specifications: Specification[]
+  private static instance: SpecificationsRepository
 
-  constructor () {
+  private constructor () {
     this.specifications = []
+  }
+
+  public static getInstance(): SpecificationsRepository {
+    if(SpecificationsRepository.instance === undefined) {
+      SpecificationsRepository.instance = new SpecificationsRepository()
+    }
+    return SpecificationsRepository.instance
   }
 
   create ({ name, description }: SpecificationData): void {
