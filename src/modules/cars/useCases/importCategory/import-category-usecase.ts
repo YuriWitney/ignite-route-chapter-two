@@ -2,6 +2,11 @@ import fs from 'fs'
 import { parse } from 'csv-parse'
 import { CategoriesRepository } from '../../repositories/categories-repository'
 
+interface ImportCategory {
+  name: string
+  description: string
+}
+
 export class ImportCategoryUsecase {
   private readonly categoriesRepository: CategoriesRepository
 
@@ -9,18 +14,44 @@ export class ImportCategoryUsecase {
     this.categoriesRepository = categoriesRepository
   }
 
-  execute (file: Express.Multer.File | undefined): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const stream = fs.createReadStream(file!.path)
+  async loadCategories (file: Express.Multer.File | undefined): Promise<ImportCategory[]> {
+    return await new Promise((resolve, reject) => {
+      const categories: ImportCategory[] = []
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const stream = fs.createReadStream(file!.path)
 
-    const parseFile = parse()
+      const parseFile = parse()
 
-    stream.pipe(parseFile)
+      stream.pipe(parseFile)
 
-    parseFile.on('data', (line) => {
-      console.log(line)
+      parseFile.on('data', (line) => {
+        const [name, description] = line
+        categories.push({
+          name,
+          description
+        })
+      })
+        .on('end', () => {
+          resolve(categories)
+        })
+        .on('error', (err) => {
+          reject(err)
+        })
     })
+  }
 
-    console.log(file)
+  async execute (file: Express.Multer.File | undefined): Promise<void> {
+    const categories = await this.loadCategories(file)
+    categories.map(async (category) => {
+      const { name, description } = category
+
+      const existsCategory = this.categoriesRepository.findByName(name)
+      if (existsCategory === undefined) {
+        this.categoriesRepository.create({
+          name,
+          description
+        })
+      }
+    })
   }
 }

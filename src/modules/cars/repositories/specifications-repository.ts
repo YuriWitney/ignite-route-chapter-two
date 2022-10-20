@@ -10,8 +10,8 @@ export class SpecificationsRepository implements DbSpecificationsRepository {
     this.specifications = []
   }
 
-  public static getInstance(): SpecificationsRepository {
-    if(SpecificationsRepository.instance === undefined) {
+  public static getInstance (): SpecificationsRepository {
+    if (SpecificationsRepository.instance === undefined) {
       SpecificationsRepository.instance = new SpecificationsRepository()
     }
     return SpecificationsRepository.instance
