@@ -7,5 +7,16 @@
         "contact": {
             "email": "yuri@gmail.com"
         }
+    },
+    "paths": {
+        "/categories": {
+            "post": {
+                "summary": "Create a category",
+                "description": "Create a new category",
+                "requestBody": {
+                    
+                }
+            }
+        }
     }
 }
