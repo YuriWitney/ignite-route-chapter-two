@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import fs from 'fs'
 import { parse } from 'csv-parse'
 import { CategoriesRepository } from '../../repositories/categories-repository'
@@ -17,7 +18,6 @@ export class ImportCategoryUsecase {
   async loadCategories (file: Express.Multer.File | undefined): Promise<ImportCategory[]> {
     return await new Promise((resolve, reject) => {
       const categories: ImportCategory[] = []
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const stream = fs.createReadStream(file!.path)
 
       const parseFile = parse()
@@ -32,6 +32,8 @@ export class ImportCategoryUsecase {
         })
       })
         .on('end', () => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          fs.promises.unlink(file!.path)
           resolve(categories)
         })
         .on('error', (err) => {
