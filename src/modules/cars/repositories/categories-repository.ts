@@ -9,8 +9,8 @@ export class CategoriesRepository implements DbCategoriesRepository {
     this.categories = []
   }
 
-  public static getInstance() {
-    if(CategoriesRepository.instance === undefined) {
+  public static getInstance (): CategoriesRepository {
+    if (CategoriesRepository.instance === undefined) {
       CategoriesRepository.instance = new CategoriesRepository()
     }
     return CategoriesRepository.instance

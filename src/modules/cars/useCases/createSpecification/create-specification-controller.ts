@@ -1,17 +1,18 @@
-import { Request, Response } from "express";
-import { CreateSpecificationUseCase } from "./create-specification-useCase";
+import { Request, Response } from 'express'
+import { CreateSpecificationUseCase } from './create-specification-useCase'
 
 export class CreateSpecificationController {
-    private readonly createSpecificationUseCase: CreateSpecificationUseCase
+  private readonly createSpecificationUseCase: CreateSpecificationUseCase
 
-    constructor (createSpecificationUseCase: CreateSpecificationUseCase) {
-        this.createSpecificationUseCase = createSpecificationUseCase
-    }
-    handle(request: Request, response: Response) {
-        const { name, description } = request.body
+  constructor (createSpecificationUseCase: CreateSpecificationUseCase) {
+    this.createSpecificationUseCase = createSpecificationUseCase
+  }
 
-        this.createSpecificationUseCase.execute({ name, description })
+  handle (request: Request, response: Response) {
+    const { name, description } = request.body
 
-        return response.status(201).send()
-    }
+    this.createSpecificationUseCase.execute({ name, description })
+
+    return response.status(201).send()
+  }
 }
