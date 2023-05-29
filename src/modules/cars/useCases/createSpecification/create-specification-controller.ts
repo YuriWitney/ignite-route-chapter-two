@@ -8,7 +8,7 @@ export class CreateSpecificationController {
     this.createSpecificationUseCase = createSpecificationUseCase
   }
 
-  handle (request: Request, response: Response) {
+  handle (request: Request, response: Response): Response {
     const { name, description } = request.body
 
     this.createSpecificationUseCase.execute({ name, description })
