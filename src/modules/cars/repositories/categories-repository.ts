@@ -1,12 +1,14 @@
+import { Repository } from 'typeorm'
+import { AppDataSource } from '../../../../ormconfig'
 import { Category } from '../entities/category'
 import { CategoryData, DbCategoriesRepository } from './protocols/db-categories-repository'
 
 export class CategoriesRepository implements DbCategoriesRepository {
-  private readonly categories: Category[]
+  private readonly repository: Repository<Category>
   private static instance: CategoriesRepository
 
   private constructor () {
-    this.categories = []
+    this.repository = AppDataSource.getRepository(Category)
   }
 
   public static getInstance (): CategoriesRepository {
@@ -16,23 +18,22 @@ export class CategoriesRepository implements DbCategoriesRepository {
     return CategoriesRepository.instance
   }
 
-  create ({ name, description }: CategoryData): void {
-    const newCategory = new Category()
-
-    Object.assign(newCategory, {
-      name,
+  async create ({ name, description }: CategoryData): Promise<void> {
+    const category = this.repository.create({
       description,
-      created_at: new Date()
+      name
     })
 
-    this.categories.push(newCategory)
+    await this.repository.save(category)
   }
 
-  list (): Category[] {
-    return this.categories
+  async list (): Promise<Category[]> {
+    const categories = await this.repository.find()
+    return categories
   }
 
-  findByName (name: string): Category | undefined {
-    return this.categories.find(category => category.name === name)
+  async findByName (name: string): Promise<Category | null> {
+    const category = await this.repository.findOne({ where: { name } })
+    return category
   }
 }

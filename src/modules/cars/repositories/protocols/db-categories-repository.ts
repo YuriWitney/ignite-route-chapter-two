@@ -6,7 +6,7 @@ export interface CategoryData {
 }
 
 export interface DbCategoriesRepository {
-  create: ({ name, description }: CategoryData) => void
-  list: () => Category[]
-  findByName: (name: string) => Category | undefined
+  create: ({ name, description }: CategoryData) => Promise<void>
+  list: () => Promise<Category[]>
+  findByName: (name: string) => Promise<Category | null>
 }
