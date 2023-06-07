@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "migration:create": "typeorm migration:create",
+    "migration:generate": "npx typeorm-ts-node-esm migration:generate -d ormconfig.ts",
+    "migration:up": "npx typeorm-ts-node-esm migration:run -d ormconfig.ts",
+    "migration:down": "npx typeorm-ts-node-esm migration:revert -d ormconfig.ts",
     "start": "ts-node-dev --exit-child src/server.ts",
     "debug": "node --inspect-brk -r sucrase/register src/server.ts",
     "test": "jest --passWithNoTests --runInBand --noStackTrace",
