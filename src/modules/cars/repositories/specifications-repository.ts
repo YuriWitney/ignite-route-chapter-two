@@ -1,5 +1,5 @@
 import { v4 as uuidV4 } from 'uuid'
-import { Specification } from '../model/specification'
+import { Specification } from '../entities/specification'
 import { DbSpecificationsRepository, SpecificationData } from './protocols/db-specifications-repository'
 
 export class SpecificationsRepository implements DbSpecificationsRepository {

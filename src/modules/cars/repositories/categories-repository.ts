@@ -1,4 +1,4 @@
-import { Category } from '../model/category'
+import { Category } from '../entities/category'
 import { CategoryData, DbCategoriesRepository } from './protocols/db-categories-repository'
 
 export class CategoriesRepository implements DbCategoriesRepository {

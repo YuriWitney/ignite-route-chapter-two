@@ -1,4 +1,4 @@
-import { Category } from '../../model/category'
+import { Category } from '../../entities/category'
 import { DbCategoriesRepository } from '../../repositories/protocols/db-categories-repository'
 
 export class ListCategoryUsecase {
